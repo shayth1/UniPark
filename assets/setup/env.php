@@ -18,3 +18,4 @@ if (!defined('MAIL_USERNAME'))                  define('MAIL_USERNAME', 'example
 if (!defined('MAIL_PASSWORD'))                  define('MAIL_PASSWORD', 'example-password');
 if (!defined('MAIL_ENCRYPTION'))                define('MAIL_ENCRYPTION', 'ssl');
 if (!defined('MAIL_PORT'))                      define('MAIL_PORT', 465);
+date_default_timezone_set('Asia/Amman');

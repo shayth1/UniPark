@@ -3,6 +3,9 @@
 define('TITLE', "Aria");
 include '../assets/layouts/header.php';
 check_verified();
+if ($_SESSION['userType'] != "admin") {
+    header("Location:../logout");
+}
 ?>
 
 
@@ -62,6 +65,7 @@ check_verified();
 
                                 <td>
                                     <a href="ariaDetails.php?id=' . $row['id'] . '" type="button" class="btn btn-primary">Open</a>
+                                    <a href="includes/deleteParking.php?id=' . $row['id'] . '" type="button" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                                 

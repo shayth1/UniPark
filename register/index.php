@@ -98,22 +98,23 @@ check_logged_out();
                 </div>
 
                 <hr>
-                <span class="h5 mb-3 font-weight-normal text-muted text-center">Optional</span>
-                <br><br>
+
 
                 <div class="form-group">
                     <label for="first_name" class="sr-only">First Name</label>
-                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name">
+                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name"
+                        required>
                 </div>
 
                 <div class="form-group">
                     <label for="last_name" class="sr-only">Last Name</label>
-                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name">
+                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name"
+                        required>
                 </div>
 
                 <div class="form-group mt-4">
-                    <label for="headline" class="sr-only">Headline</label>
-                    <input type="text" id="headline" name="headline" class="form-control" placeholder="headline">
+                    <label for="headline" class="sr-only">Phone</label>
+                    <input type="text" id="headline" name="headline" class="form-control" placeholder="Phone" required>
                 </div>
 
                 <div class="form-group">

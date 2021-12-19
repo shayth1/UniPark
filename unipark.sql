@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2021 at 06:35 PM
+-- Generation Time: Dec 19, 2021 at 11:35 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -42,7 +42,8 @@ CREATE TABLE `auth_tokens` (
 --
 
 INSERT INTO `auth_tokens` (`id`, `user_email`, `auth_type`, `selector`, `token`, `created_at`, `expires_at`) VALUES
-(62, 'user@user.com', 'account_verify', 'aab86520e2089be0', '$2y$10$eQSmkVQCyt./dbGi.arba.29oqozZ8RJEcZghvlr/Qm5jKM7Nq6pK', '2021-11-13 09:09:53', '2021-11-13 10:09:53');
+(62, 'user@user.com', 'account_verify', 'aab86520e2089be0', '$2y$10$eQSmkVQCyt./dbGi.arba.29oqozZ8RJEcZghvlr/Qm5jKM7Nq6pK', '2021-11-13 09:09:53', '2021-11-13 10:09:53'),
+(75, 'supa@hot.com', 'remember_me', '4427d832b4e178c1', '$2y$10$Fv4H7lqErRZ/9hUs5Rwl.uj5t5W1Ps10Qx7Nwr13J.vR8qaf8yZ4S', '2021-12-19 10:07:40', '2021-12-29 10:07:40');
 
 -- --------------------------------------------------------
 
@@ -53,8 +54,24 @@ INSERT INTO `auth_tokens` (`id`, `user_email`, `auth_type`, `selector`, `token`,
 CREATE TABLE `park` (
   `id` int(11) NOT NULL,
   `parking_id` int(11) NOT NULL,
-  `parkNum` int(11) NOT NULL
+  `parkStatus` varchar(255) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `takenFrom` time DEFAULT NULL,
+  `freeAt` time DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `park`
+--
+
+INSERT INTO `park` (`id`, `parking_id`, `parkStatus`, `user_id`, `takenFrom`, `freeAt`) VALUES
+(1, 1, 'Avilable', NULL, NULL, NULL),
+(2, 1, 'Avilable', NULL, NULL, NULL),
+(3, 1, 'Avilable', NULL, NULL, NULL),
+(4, 2, 'Avilable', NULL, NULL, NULL),
+(5, 2, 'Avilable', NULL, NULL, NULL),
+(6, 3, 'BUSY', NULL, NULL, NULL),
+(7, 3, 'Avilable', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -73,8 +90,56 @@ CREATE TABLE `parking` (
 --
 
 INSERT INTO `parking` (`id`, `parkingName`, `parkingMap`) VALUES
-(1, 'Parking 1', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d845.7725063594216!2d35.93331048815106!3d32.01267499881985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xbc49c747d4415118!2zMzLCsDAwJzQ1LjYiTiAzNcKwNTYnMDEuOSJF!5e0!3m2!1sen!2sjo!4v163679713'),
+(1, 'Parking 1', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d845.7823438575009!2d35.93284648815106!3d32.01160899881986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2acd5038212339f0!2zMzLCsDAwJzQxLjgiTiAzNcKwNTYnMDAuMiJF!5e0!3m2!1sen!2sjo!4v163679870'),
 (2, 'Parking 2', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d845.7823438575009!2d35.93284648815106!3d32.01160899881986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2acd5038212339f0!2zMzLCsDAwJzQxLjgiTiAzNcKwNTYnMDAuMiJF!5e0!3m2!1sen!2sjo!4v163679870');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `parkinghistory`
+--
+
+CREATE TABLE `parkinghistory` (
+  `id` int(11) NOT NULL,
+  `carNumber` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `date` date NOT NULL DEFAULT current_timestamp(),
+  `starTime` varchar(255) NOT NULL,
+  `endTime` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `parkinghistory`
+--
+
+INSERT INTO `parkinghistory` (`id`, `carNumber`, `user_id`, `date`, `starTime`, `endTime`) VALUES
+(1, '40-505050', 32, '2021-11-27', '11:38', '12:38'),
+(2, '52165574', 32, '2021-11-27', '12:41', '13:41'),
+(3, '0423245', 32, '2021-12-19', '13:29', '14:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reports`
+--
+
+CREATE TABLE `reports` (
+  `id` int(11) NOT NULL,
+  `fromUser` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `photo` varchar(255) NOT NULL,
+  `carNumber` varchar(255) NOT NULL,
+  `text` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reports`
+--
+
+INSERT INTO `reports` (`id`, `fromUser`, `date`, `photo`, `carNumber`, `text`) VALUES
+(1, 32, '2021-11-27 10:27:58', '61a2082e3c8322.62748992.png', '8524520', 'qsxzsqxqsxxs'),
+(2, 32, '2021-11-27 10:42:19', '61a20b8baf1c60.69431794.jpg', '5216485', 'final test'),
+(3, 32, '2021-12-19 10:30:29', '61bf09c56d0327.37902324.png', '54824532', ';erjveafvfe');
 
 -- --------------------------------------------------------
 
@@ -106,8 +171,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `userType`, `email`, `password`, `first_name`, `last_name`, `gender`, `headline`, `bio`, `profile_image`, `verified_at`, `created_at`, `updated_at`, `deleted_at`, `last_login_at`) VALUES
-(31, 'shayth', 'admin', 'supa@hot.com', '$2y$10$ztLFWs7boqo8UT0s3v.2Sunskl6N31hRPkCkdgkZs8usXJNu6KH4K', 'Supahot', 'Soverysupahot', 'm', 'Headline of a supa hot user', 'This is the bio of a supa hot user. Now i will say needless stuff to make this longer so this looks like a bio and not anything other than a bio.', '_defaultUser.png', '2021-11-01 09:03:55', '2021-11-13 08:59:17', '2021-11-13 10:25:22', NULL, '2021-11-13 10:25:22'),
-(32, 'user', '', 'user@user.com', '$2y$10$XGgHzB4E3aqlZgg8HstWcuAmj8/GmGl.VlYlpXd4zl7ZhzY8Ekb5K', 'user', 'one', 'm', 'welcom', '3180605198', '618f80e1a5d578.87974400.jpg', '2021-11-13 09:09:53', '2021-11-13 09:09:53', '2021-11-13 10:23:14', NULL, '2021-11-13 10:23:14');
+(31, 'admin', 'admin', 'admin@admin.com', '$2y$10$XOtV9m5WXcnGgPQTiiQPIuGmnmtEqGdTd3VnFMS3XL8bkkRnvHHSe', 'admin', 'admin', 'm', '07955555555', 'My profile', '61bf097a794170.12734705.jpg', '2021-11-01 09:03:55', '2021-11-13 08:59:17', '2021-12-19 10:31:22', NULL, '2021-12-19 10:31:22'),
+(32, 'user', '', 'user@user.com', '$2y$10$XGgHzB4E3aqlZgg8HstWcuAmj8/GmGl.VlYlpXd4zl7ZhzY8Ekb5K', 'user', 'one', 'm', '0791249875', '3180605198', '618f80e1a5d578.87974400.jpg', '2021-11-13 09:09:53', '2021-11-13 09:09:53', '2021-12-19 10:29:28', NULL, '2021-12-19 10:29:28');
 
 --
 -- Indexes for dumped tables
@@ -133,6 +198,18 @@ ALTER TABLE `parking`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `parkinghistory`
+--
+ALTER TABLE `parkinghistory`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `reports`
+--
+ALTER TABLE `reports`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -149,19 +226,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `auth_tokens`
 --
 ALTER TABLE `auth_tokens`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `park`
 --
 ALTER TABLE `park`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `parking`
 --
 ALTER TABLE `parking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `parkinghistory`
+--
+ALTER TABLE `parkinghistory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `reports`
+--
+ALTER TABLE `reports`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`

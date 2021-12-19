@@ -3,6 +3,9 @@
 define('TITLE', "Add Aria");
 include '../assets/layouts/header.php';
 check_verified();
+if ($_SESSION['userType'] != "admin") {
+    header("Location:../logout");
+}
 ?>
 
 <div class="container">

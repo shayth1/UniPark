@@ -7,6 +7,7 @@ require '../assets/setup/db.inc.php';
 require '../assets/includes/auth_functions.php';
 require '../assets/includes/security_functions.php';
 
+
 if (isset($_SESSION['auth']))
     $_SESSION['expire'] = ALLOWED_INACTIVITY_TIME;
 
@@ -30,10 +31,11 @@ check_remember_me();
 
     <link rel="stylesheet" href="../assets/vendor/bootstrap-4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/vendor/fontawesome-5.12.0/css/all.min.css">
- 
+
     <!-- Custom styles -->
     <link rel="stylesheet" href="../assets/css/app.css">
-    <link rel="stylesheet" href="custom.css" >
+    <link rel="stylesheet" href="custom.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 

@@ -24,50 +24,81 @@ check_verified();
                     <small>Last logged in at <?php echo date("m-d-Y", strtotime($_SESSION['last_login_at'])); ?></small>
                 </div>
             </div>
+            <?php
+            $sql = "SELECT user_id FROM park WHERE user_id = $_SESSION[id]";
+            $stmt = mysqli_stmt_init($conn);
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                die('SQL ERROR');
+            } else {
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+                $user = mysqli_fetch_assoc($result);
+                error_reporting(0);
+                if ($user['user_id'] != NULL) {
+                    echo '
+                        <a type="button" href="myReserve.php" class="btn btn-success"> Show My Park</a>
+                        ';
+                } elseif ($user['user_id'] === NULL) {
+                    echo ' <div class="my-3 p-3 bg-white rounded box-shadow">
+                        <h6 class="mb-0">Avilable Parks</h6>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Location</th>
+                                    <th scope="col">Parking Number</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="getPark"></tbody>
+        
+                        </table>
+        
+        
+                        </small>
+                    </div>';
+                }
+            }
 
-            <div class="my-3 p-3 bg-white rounded box-shadow">
-                <h6 class="mb-0">Dummy Text</h6>
-                <sub class="text-muted border-bottom border-gray pb-2 mb-0">[use for your application purpose]</sub>
+            ?>
 
-                <div class="media text-muted pt-3">
-                    <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
-                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                        <strong class="d-block text-gray-dark">@somethingsomething</strong>
-                        Some dummy text. This is originally meant to be completely replaced with your application's own functionality.<br>
-                        Or maybe use this for other functionality, although that is not recommended.
-                    </p>
-                </div>
-                <div class="media text-muted pt-3">
-                    <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
-                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                        <strong class="d-block text-gray-dark">@somethingsomething</strong>
-                        Some dummy text. This is originally meant to be completely replaced with your application's own functionality.<br>
-                        Or maybe use this for other functionality, although that is not recommended.
-                    </p>
-                </div>
-                <div class="media text-muted pt-3">
-                    <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
-                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                        <strong class="d-block text-gray-dark">@somethingsomething</strong>
-                        Some dummy text. This is originally meant to be completely replaced with your application's own functionality.<br>
-                        Or maybe use this for other functionality, although that is not recommended.
-                    </p>
-                </div>
-                
-                <small class="d-block text-right mt-3">
-                    <a href="#">All updates</a>
-                </small>
-            </div>
+
 
         </div>
     </div>
+
+
 </main>
+<script>
+$('document').ready(function() {
+    setInterval(function() {
+        getParkData()
+
+    }, 1000);
+
+});
+
+function getParkData() {
+    $.ajax({
+        url: "includes/getPark.inc.php",
+        type: "post",
+        data: 'json',
+
+        cache: false,
+        success: function(data) {
+            $('#getPark').html(data);
+        }
+    });
+};
+</script>
 
 
 
 
-    <?php
 
-    include '../assets/layouts/footer.php'
 
-    ?>
+<?php
+
+include '../assets/layouts/footer.php'
+
+?>

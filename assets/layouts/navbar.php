@@ -65,12 +65,20 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="../admin/aria.php">Aria</a>
+                            <a class="nav-link" href="../admin/aria.php">Area</a>
                         </li>
 
 
                         <li class="nav-item">
-                            <a class="nav-link" href="../admin/addPark.php">Satistics</a>
+                            <a class="nav-link" href="../admin/calc.php">Statistics</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="../admin/history.php">Parks History</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="../admin/reports.php">Reports</a>
                         </li>
 
                         <div class="dropdown">
@@ -96,16 +104,13 @@
                         <?php } else { ?>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="../dashboard">Dashboard</a>
+                            <a class="nav-link" href="../dashboard">My Park History</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="../home">Home</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="../contact">Contact Us</a>
-                        </li>
 
                         <div class="dropdown">
                             <button class="btn btn-dark dropdown-toggle" type="button" id="imgdropdown"
